@@ -12,7 +12,8 @@
             --border-color: #26262a;
             --text-main: #ffffff;
             --text-sub: #8e8e93;
-            --accent: #ffffff;
+            --neon-purple: #8b5cf6;
+            --neon-blue: #3b82f6;
         }
 
         * {
@@ -39,20 +40,68 @@
             flex-direction: column;
             gap: 12px;
             padding-bottom: 24px;
+            transition: opacity 0.25s ease, transform 0.25s ease;
         }
 
         .hidden { display: none !important; }
+
+        /* Nút Bóng Nổi (Khi Ẩn Menu) */
+        .floating-ball {
+            position: fixed;
+            top: 20%;
+            left: 16px;
+            width: 58px;
+            height: 58px;
+            background: #08080c;
+            border: 2px solid rgba(139, 92, 246, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.6), inset 0 0 12px rgba(59, 130, 246, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9999;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 12px rgba(139, 92, 246, 0.5); }
+            100% { box-shadow: 0 0 24px rgba(59, 130, 246, 0.9); }
+        }
+
+        /* Logo Night iOS Custom */
+        .night-logo {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            background: #050508;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
 
         /* Login Card */
         .login-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 24px;
-            padding: 24px 20px;
+            padding: 28px 20px;
             margin-top: 40px;
+            text-align: center;
         }
-        .login-title { font-size: 1.4rem; font-weight: 700; text-align: center; margin-bottom: 6px; }
-        .login-sub { font-size: 0.8rem; color: var(--text-sub); text-align: center; margin-bottom: 20px; }
+        .login-logo-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 14px;
+        }
+        .login-title { font-size: 1.4rem; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .login-title span { background: linear-gradient(90deg, #a855f7, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .login-sub { font-size: 0.8rem; color: var(--text-sub); margin-bottom: 22px; }
+        .input-group { text-align: left; }
         .input-group label { display: block; font-size: 0.75rem; color: var(--text-sub); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
         .key-input {
             width: 100%;
@@ -63,9 +112,9 @@
             color: #fff;
             font-size: 0.95rem;
             outline: none;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
-        .key-input:focus { border-color: #555; }
+        .key-input:focus { border-color: var(--neon-purple); }
         .primary-btn {
             width: 100%;
             padding: 14px;
@@ -79,65 +128,44 @@
         }
         .error-text { color: #ff453a; font-size: 0.8rem; text-align: center; margin-top: 10px; }
 
-        /* Main Header */
+        /* Main Header (Đã xoá 3 cột thông số máy) */
         .main-header {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 24px;
-            padding: 18px 16px;
+            padding: 16px;
         }
         .header-top {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 16px;
         }
         .app-badge {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
-        .app-icon {
-            width: 52px;
-            height: 52px;
-            background: #fff;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            color: #000;
+        .app-title h2 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: 0.3px;
         }
-        .app-title h2 { font-size: 1.15rem; font-weight: 700; }
-        .app-title p { font-size: 0.8rem; color: var(--text-sub); margin-top: 2px; }
-        .settings-btn {
-            width: 36px;
-            height: 36px;
+        .app-title h2 span {
+            background: linear-gradient(90deg, #c084fc, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .app-title p { font-size: 0.8rem; color: var(--text-sub); margin-top: 3px; }
+        .hide-menu-btn {
+            padding: 8px 12px;
             background: var(--item-bg);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #c084fc;
+            border: 1px solid rgba(192, 132, 252, 0.3);
             cursor: pointer;
         }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            border-top: 1px solid var(--border-color);
-            padding-top: 14px;
-            text-align: center;
-        }
-        .stat-col {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .stat-col:not(:last-child) { border-right: 1px solid var(--border-color); }
-        .stat-label { font-size: 0.65rem; color: var(--text-sub); text-transform: uppercase; font-weight: 600; }
-        .stat-val { font-size: 0.85rem; font-weight: 600; }
 
         /* Section Items */
         .list-card {
@@ -179,7 +207,7 @@
         }
 
         /* Switch UI */
-        .switch { position: relative; display: inline-block; width: 50px; height: 28px; }
+        .switch { position: relative; display: inline-block; width: 50px; height: 28px; flex-shrink: 0; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; inset: 0; background-color: #39393d; transition: .25s; border-radius: 28px; }
         .slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 3px; bottom: 3px; background-color: white; transition: .25s; border-radius: 50%; }
@@ -190,8 +218,13 @@
         .nav-bar {
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: space-between;
             margin-bottom: 4px;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         .back-circle {
             width: 38px;
@@ -208,9 +241,10 @@
         .nav-title h3 { font-size: 1.1rem; }
         .nav-title p { font-size: 0.75rem; color: var(--text-sub); }
 
+        /* 4 Tabs: ESP | AIM | MISC | ẨN MENU */
         .tabs-header {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat(4, 1fr);
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 16px;
@@ -222,8 +256,8 @@
             border: none;
             color: var(--text-sub);
             font-weight: 700;
-            padding: 10px;
-            font-size: 0.85rem;
+            padding: 10px 4px;
+            font-size: 0.8rem;
             border-radius: 12px;
             cursor: pointer;
         }
@@ -248,6 +282,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
         }
         .setting-info h5 { font-size: 0.9rem; font-weight: 600; }
         .setting-info p { font-size: 0.72rem; color: var(--text-sub); margin-top: 2px; }
@@ -285,9 +320,7 @@
             color: #000;
         }
 
-        .range-wrapper {
-            margin-top: 14px;
-        }
+        .range-wrapper { margin-top: 14px; }
         .range-labels {
             display: flex;
             justify-content: space-between;
@@ -298,6 +331,19 @@
         input[type=range] {
             width: 100%;
             accent-color: #fff;
+        }
+
+        .action-hide-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            color: #d8b4fe;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-top: 4px;
         }
 
         .inject-btn {
@@ -323,11 +369,55 @@
 </head>
 <body>
 
-    <div class="phone-wrapper">
+    <!-- Nút Bóng Nổi hiện ra khi bấm ẨN MENU -->
+    <div id="floatingBall" class="floating-ball hidden" onclick="toggleHideMenu(false)" title="Chạm để mở lại Menu">
+        <svg viewBox="0 0 100 100" width="38" height="38">
+            <defs>
+                <linearGradient id="neonGradBall" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#c084fc" />
+                    <stop offset="50%" stop-color="#6366f1" />
+                    <stop offset="100%" stop-color="#38bdf8" />
+                </linearGradient>
+            </defs>
+            <path d="M62 15 C55 15 49 21 50 28 C57 28 63 22 62 15 Z" fill="url(#neonGradBall)"/>
+            <path d="M68 32 C59 32 55 36 50 36 C45 36 40 32 32 32 C20 32 12 43 12 56 C12 72 25 88 35 88 C41 88 44 84 50 84 C56 84 59 88 65 88 C75 88 86 73 86 62 C75 58 74 42 84 36 C80 33 74 32 68 32 Z" fill="none" stroke="url(#neonGradBall)" stroke-width="5"/>
+            <path d="M63 45 A7 7 0 1 1 55 55 A5 5 0 1 0 63 45 Z" fill="#e0e7ff"/>
+        </svg>
+    </div>
+
+    <!-- KHUNG MENU CHÍNH -->
+    <div id="mainWrapper" class="phone-wrapper">
+        
         <!-- 1. MÀN HÌNH NHẬP KEY -->
         <div id="screenLogin" class="login-card">
-            <div class="login-title">NIGHT IOS FF</div>
-            <div class="login-sub">Trợ lý trong game • Phiên bản demo</div>
+            <div class="login-logo-wrap">
+                <div class="night-logo" style="width: 72px; height: 72px; border-radius: 20px;">
+                    <svg viewBox="0 0 100 100" width="56" height="56">
+                        <defs>
+                            <linearGradient id="appleNeon" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#e879f9" />
+                                <stop offset="50%" stop-color="#6366f1" />
+                                <stop offset="100%" stop-color="#38bdf8" />
+                            </linearGradient>
+                            <clipPath id="appleClip">
+                                <path d="M68 32 C59 32 55 36 50 36 C45 36 40 32 32 32 C20 32 12 43 12 56 C12 72 25 88 35 88 C41 88 44 84 50 84 C56 84 59 88 65 88 C75 88 86 73 86 62 C75 58 74 42 84 36 C80 33 74 32 68 32 Z"/>
+                            </clipPath>
+                        </defs>
+                        <path d="M62 14 C54 14 48 20 49 28 C57 28 63 22 62 14 Z" fill="url(#appleNeon)"/>
+                        <g clip-path="url(#appleClip)">
+                            <rect width="100" height="100" fill="#09071a"/>
+                            <circle cx="32" cy="46" r="1" fill="#fff"/>
+                            <circle cx="44" cy="52" r="1.2" fill="#fff"/>
+                            <path d="M64 43 A8 8 0 1 1 54 55 A6 6 0 1 0 64 43 Z" fill="#fff"/>
+                            <polygon points="10,90 35,65 60,90" fill="#1e1b4b"/>
+                            <polygon points="35,90 62,58 90,90" fill="#0f0e26"/>
+                        </g>
+                        <path d="M68 32 C59 32 55 36 50 36 C45 36 40 32 32 32 C20 32 12 43 12 56 C12 72 25 88 35 88 C41 88 44 84 50 84 C56 84 59 88 65 88 C75 88 86 73 86 62 C75 58 74 42 84 36 C80 33 74 32 68 32 Z" fill="none" stroke="url(#appleNeon)" stroke-width="3.5"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="login-title">NIGHT <span>IOS</span> FF</div>
+            <div class="login-sub">Trợ lý trong game • Hệ thống xác thực Key</div>
             <div class="input-group">
                 <label>Nhập API Key</label>
                 <input type="text" id="keyField" class="key-input" placeholder="Ví dụ: NIGHT-2026-VIP">
@@ -336,33 +426,43 @@
             <div id="loginError" class="error-text"></div>
         </div>
 
-        <!-- 2. TRANG CHỦ DASHBOARD -->
+        <!-- 2. TRANG CHỦ DASHBOARD (Đã xoá 3 cột thông số & xoá Telegram) -->
         <div id="screenDashboard" class="hidden" style="display: flex; flex-direction: column; gap: 12px;">
-            <!-- Main Header -->
+            
+            <!-- Main Header kèm Logo Night iOS bên cạnh tên -->
             <div class="main-header">
                 <div class="header-top">
                     <div class="app-badge">
-                        <div class="app-icon">👑</div>
+                        <div class="night-logo">
+                            <svg viewBox="0 0 100 100" width="44" height="44">
+                                <defs>
+                                    <linearGradient id="appleNeon2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#e879f9" />
+                                        <stop offset="50%" stop-color="#6366f1" />
+                                        <stop offset="100%" stop-color="#38bdf8" />
+                                    </linearGradient>
+                                    <clipPath id="appleClip2">
+                                        <path d="M68 32 C59 32 55 36 50 36 C45 36 40 32 32 32 C20 32 12 43 12 56 C12 72 25 88 35 88 C41 88 44 84 50 84 C56 84 59 88 65 88 C75 88 86 73 86 62 C75 58 74 42 84 36 C80 33 74 32 68 32 Z"/>
+                                    </clipPath>
+                                </defs>
+                                <path d="M62 14 C54 14 48 20 49 28 C57 28 63 22 62 14 Z" fill="url(#appleNeon2)"/>
+                                <g clip-path="url(#appleClip2)">
+                                    <rect width="100" height="100" fill="#09071a"/>
+                                    <circle cx="32" cy="46" r="1.2" fill="#fff"/>
+                                    <circle cx="44" cy="52" r="1.4" fill="#fff"/>
+                                    <path d="M64 43 A8 8 0 1 1 54 55 A6 6 0 1 0 64 43 Z" fill="#fff"/>
+                                    <polygon points="10,90 35,65 60,90" fill="#1e1b4b"/>
+                                    <polygon points="35,90 62,58 90,90" fill="#0f0e26"/>
+                                </g>
+                                <path d="M68 32 C59 32 55 36 50 36 C45 36 40 32 32 32 C20 32 12 43 12 56 C12 72 25 88 35 88 C41 88 44 84 50 84 C56 84 59 88 65 88 C75 88 86 73 86 62 C75 58 74 42 84 36 C80 33 74 32 68 32 Z" fill="none" stroke="url(#appleNeon2)" stroke-width="3.5"/>
+                            </svg>
+                        </div>
                         <div class="app-title">
-                            <h2>NIGHT IOS FF</h2>
+                            <h2>NIGHT <span>IOS</span> FF</h2>
                             <p>Trợ lý trong game • v1.0.0</p>
                         </div>
                     </div>
-                    <div class="settings-btn">⚙️</div>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-col">
-                        <span class="stat-label">📱 Thiết Bị</span>
-                        <span class="stat-val">iPhone13,2</span>
-                    </div>
-                    <div class="stat-col">
-                        <span class="stat-label">⚙️ Hệ Điều Hành</span>
-                        <span class="stat-val">iOS 18.7.8</span>
-                    </div>
-                    <div class="stat-col">
-                        <span class="stat-label">🛡️ Tương Thích</span>
-                        <span class="stat-val" style="color: #ff9f0a;">Hạn chế</span>
-                    </div>
+                    <button class="hide-menu-btn" onclick="toggleHideMenu(true)">Ẩn Menu</button>
                 </div>
             </div>
 
@@ -376,13 +476,13 @@
                     </div>
                 </div>
                 <label class="switch">
-                    <input type="checkbox">
+                    <input type="checkbox" checked>
                     <span class="slider"></span>
                 </label>
             </div>
 
             <!-- Reset Guest -->
-            <div class="list-card">
+            <div class="list-card" onclick="alert('Đã xoá định danh Guest giả lập!')">
                 <div class="list-left">
                     <div class="icon-circle">🔄</div>
                     <div class="list-info">
@@ -396,7 +496,7 @@
             <!-- CHỌN GAME -->
             <div class="section-header">🎮 CHỌN GAME</div>
 
-            <!-- Free Fire Item (Bấm vào để mở ESP/AIM) -->
+            <!-- Free Fire Item -->
             <div class="list-card" onclick="openGameMenu('Free Fire')">
                 <div class="list-left">
                     <div class="icon-circle" style="color: #ff453a;">🔥</div>
@@ -424,49 +524,41 @@
                 </div>
             </div>
 
-            <!-- Group Telegram -->
-            <div class="list-card" style="margin-top: 6px;">
-                <div class="list-left">
-                    <div class="icon-circle" style="color: #0a84ff;">✈️</div>
-                    <div class="list-info">
-                        <h4>Group Telegram</h4>
-                        <p>Hỗ trợ • thông báo • cập nhật mới</p>
-                    </div>
-                </div>
-                <div style="color: var(--text-sub);">&rsaquo;</div>
-            </div>
-
             <!-- Key Info Box -->
-            <div class="list-card" style="padding: 10px 16px;">
+            <div class="list-card" style="padding: 12px 16px;">
                 <div class="list-left" style="gap: 10px;">
                     <div style="font-size: 16px;">🔑</div>
                     <div>
-                        <div style="font-size: 0.65rem; color: var(--text-sub);">KEY</div>
+                        <div style="font-size: 0.65rem; color: var(--text-sub);">KEY ĐANG DÙNG</div>
                         <div id="keyDisplay" style="font-size: 0.85rem; font-weight: 600;">--</div>
                     </div>
                 </div>
-                <button onclick="logout()" style="background: none; border: none; color: #ff453a; font-size: 0.8rem; cursor: pointer;">Đăng xuất</button>
+                <button onclick="logout()" style="background: none; border: none; color: #ff453a; font-size: 0.8rem; font-weight: 600; cursor: pointer;">Đăng xuất</button>
             </div>
         </div>
 
-        <!-- 3. MÀN HÌNH CHỨC NĂNG (ESP / AIM / MISC) -->
+        <!-- 3. MÀN HÌNH CHỨC NĂNG (ESP / AIM / MISC / ẨN MENU) -->
         <div id="screenDetail" class="hidden" style="display: flex; flex-direction: column; gap: 12px;">
             <div class="nav-bar">
-                <div class="back-circle" onclick="backToDashboard()">‹</div>
-                <div class="nav-title">
-                    <h3 id="detailGameTitle">Free Fire</h3>
-                    <p>Chỉnh chức năng</p>
+                <div class="nav-left">
+                    <div class="back-circle" onclick="backToDashboard()">‹</div>
+                    <div class="nav-title">
+                        <h3 id="detailGameTitle">Free Fire</h3>
+                        <p>Chỉnh chức năng</p>
+                    </div>
                 </div>
+                <button class="hide-menu-btn" onclick="toggleHideMenu(true)">Thu nhỏ</button>
             </div>
 
-            <!-- Tabs ESP / AIM / MISC -->
+            <!-- 4 Tabs: ESP | AIM | MISC | ẨN MENU -->
             <div class="tabs-header">
                 <button class="tab-btn active" id="tabBtnEsp" onclick="switchTab('esp')">ESP</button>
                 <button class="tab-btn" id="tabBtnAim" onclick="switchTab('aim')">AIM</button>
                 <button class="tab-btn" id="tabBtnMisc" onclick="switchTab('misc')">MISC</button>
+                <button class="tab-btn" id="tabBtnHide" onclick="switchTab('hide')">ẨN MENU</button>
             </div>
 
-            <!-- TAB ESP NỘI DUNG -->
+            <!-- TAB ESP -->
             <div id="tabContentEsp" class="menu-group">
                 <div class="setting-box">
                     <div class="setting-row">
@@ -488,11 +580,7 @@
                             <h5>Line</h5>
                             <p>Đường kẻ từ tâm ngắm</p>
                         </div>
-                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-                    </div>
-                    <div class="setting-row" style="margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-color);">
-                        <div class="setting-info"><h5>Màu hiển thị</h5></div>
-                        <div class="color-badge"></div>
+                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
                     </div>
                 </div>
 
@@ -509,25 +597,25 @@
                 <div class="setting-box">
                     <div class="setting-row">
                         <div class="setting-info">
-                            <h5>Máu</h5>
-                            <p>Thanh HP cho người & bot</p>
+                            <h5>Máu & Tên</h5>
+                            <p>Thanh HP và tên người chơi / bot</p>
                         </div>
-                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
                     </div>
                 </div>
 
                 <div class="setting-box">
                     <div class="setting-row">
                         <div class="setting-info">
-                            <h5>Tên</h5>
-                            <p>Tên người chơi / bot</p>
+                            <h5>Khoảng cách</h5>
+                            <p>Khoảng cách tới mục tiêu (m)</p>
                         </div>
                         <label class="switch"><input type="checkbox"><span class="slider"></span></label>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB AIM NỘI DUNG -->
+            <!-- TAB AIM -->
             <div id="tabContentAim" class="menu-group hidden">
                 <div class="setting-box">
                     <div class="setting-row">
@@ -535,7 +623,7 @@
                             <h5>Aimbot</h5>
                             <p>Khoá địch gần tâm ngắm nhất</p>
                         </div>
-                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
                     </div>
                 </div>
 
@@ -572,7 +660,7 @@
                             <h5>Hiện vòng FOV</h5>
                             <p>Ẩn/hiện vòng tròn FOV trên màn hình</p>
                         </div>
-                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
                     </div>
                 </div>
 
@@ -580,29 +668,99 @@
                     <div class="setting-row">
                         <div class="setting-info">
                             <h5>Bỏ qua gục</h5>
-                            <p>Không bắn vào địch đã bị hạ gục</p>
+                            <p>Không khoá vào địch đã bị hạ gục</p>
                         </div>
-                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB MISC NỘI DUNG -->
+            <!-- TAB MISC -->
             <div id="tabContentMisc" class="menu-group hidden">
                 <div class="setting-box">
                     <div class="setting-row">
                         <div class="setting-info">
-                            <h5>Tốc độ di chuyển</h5>
-                            <p>Tăng độ nhạy con trỏ</p>
+                            <h5>Giảm giật (No Recoil)</h5>
+                            <p>Giữ tâm súng đứng yên khi sấy</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                    </div>
+                </div>
+
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Nhạy Màn Hình (Touch Smooth)</h5>
+                            <p>Tăng tốc độ vuốt tâm nhẹ hơn</p>
                         </div>
                         <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                    </div>
+                    <div class="range-wrapper">
+                        <div class="range-labels">
+                            <span>Độ nhạy</span>
+                            <span id="sensVal">80%</span>
+                        </div>
+                        <input type="range" min="0" max="100" value="80" oninput="document.getElementById('sensVal').innerText = this.value + '%'">
+                    </div>
+                </div>
+
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Fix Lag & Mở khoá 120FPS</h5>
+                            <p>Tối ưu khung hình mượt mà</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
                     </div>
                 </div>
             </div>
 
+            <!-- TAB ẨN MENU (Chức năng ẩn & bảo mật hiển thị) -->
+            <div id="tabContentHide" class="menu-group hidden">
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Streamer Mode (Ẩn khi Quay/Live)</h5>
+                            <p>Tự động che ESP & Menu khi quay màn hình</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                    </div>
+                </div>
+
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Chống chụp màn hình</h5>
+                            <p>Ẩn toàn bộ tia vẽ khi bấm nút chụp</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                    </div>
+                </div>
+
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Độ mờ Bóng nổi (Icon Ẩn)</h5>
+                            <p>Làm mờ logo khi thu nhỏ trên màn hình</p>
+                        </div>
+                    </div>
+                    <div class="range-wrapper">
+                        <div class="range-labels">
+                            <span>Độ hiển thị</span>
+                            <span id="opacityVal">85%</span>
+                        </div>
+                        <input type="range" min="20" max="100" value="85" oninput="updateBallOpacity(this.value)">
+                    </div>
+                </div>
+
+                <button class="action-hide-btn" onclick="toggleHideMenu(true)">
+                    👁️ Bấm để Ẩn Menu Ngay (Thu thành Logo nổi)
+                </button>
+            </div>
+
             <!-- Nút Inject -->
             <div class="note-text">ⓘ Chưa kết nối được với game (Web Demo)</div>
-            <button class="inject-btn" onclick="alert('Đã gửi cấu hình giả lập!')">
+            <button class="inject-btn" onclick="alert('Đã kích hoạt cấu hình NIGHT IOS FF!')">
                 ⚡ INJECT
                 <span class="inject-sub">cài & mở game</span>
             </button>
@@ -649,7 +807,7 @@
         }
 
         function switchTab(tab) {
-            ['esp', 'aim', 'misc'].forEach(t => {
+            ['esp', 'aim', 'misc', 'hide'].forEach(t => {
                 const btn = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
                 const content = document.getElementById('tabContent' + t.charAt(0).toUpperCase() + t.slice(1));
                 if (t === tab) {
@@ -666,6 +824,24 @@
             const parent = btn.parentElement;
             parent.querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+        }
+
+        // Chức năng Ẩn/Hiện Menu thành bóng nổi
+        function toggleHideMenu(hide) {
+            const wrapper = document.getElementById("mainWrapper");
+            const ball = document.getElementById("floatingBall");
+            if (hide) {
+                wrapper.classList.add("hidden");
+                ball.classList.remove("hidden");
+            } else {
+                ball.classList.add("hidden");
+                wrapper.classList.remove("hidden");
+            }
+        }
+
+        function updateBallOpacity(val) {
+            document.getElementById("opacityVal").innerText = val + "%";
+            document.getElementById("floatingBall").style.opacity = val / 100;
         }
     </script>
 </body>
