@@ -15,6 +15,8 @@
             --neon-purple: #8b5cf6;
             --neon-blue: #3b82f6;
             --success: #34c759;
+            --warning: #ff9f0a;
+            --danger: #ff453a;
         }
 
         * {
@@ -84,8 +86,8 @@
             flex-shrink: 0;
         }
 
-        /* Login Card */
-        .login-card {
+        /* Card chung */
+        .card-panel {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 24px;
@@ -93,6 +95,7 @@
             margin-top: 24px;
             text-align: center;
         }
+
         .login-logo-wrap {
             display: flex;
             justify-content: center;
@@ -106,8 +109,8 @@
         .step-box {
             background: var(--item-bg);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 12px 14px;
+            border-radius: 16px;
+            padding: 14px;
             margin-bottom: 16px;
             text-align: left;
         }
@@ -132,49 +135,16 @@
             width: 0%;
             background: linear-gradient(90deg, #8b5cf6, #3b82f6);
             border-radius: 8px;
-            transition: width 0.35s ease;
+            transition: width 0.4s ease;
         }
         .step-desc {
-            font-size: 0.72rem;
+            font-size: 0.74rem;
             color: var(--text-sub);
-            margin-top: 6px;
+            margin-top: 8px;
+            line-height: 1.4;
         }
 
-        /* Hộp hiển thị Key tự sinh sau khi vượt đủ bước */
-        .received-key-box {
-            background: rgba(52, 199, 89, 0.12);
-            border: 1px dashed var(--success);
-            border-radius: 14px;
-            padding: 12px;
-            margin-bottom: 16px;
-            text-align: center;
-        }
-        .received-key-box span {
-            display: block;
-            font-size: 0.72rem;
-            color: var(--success);
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .received-key-val {
-            font-size: 1.05rem;
-            font-weight: 800;
-            color: #fff;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-        .copy-btn {
-            background: var(--success);
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            padding: 6px 12px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
+        /* Input & Buttons */
         .input-group { text-align: left; }
         .input-group label { display: block; font-size: 0.75rem; color: var(--text-sub); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
         .key-input {
@@ -185,6 +155,7 @@
             border-radius: 14px;
             color: #fff;
             font-size: 0.95rem;
+            font-weight: 600;
             outline: none;
             margin-bottom: 12px;
         }
@@ -201,36 +172,69 @@
             font-weight: 700;
             cursor: pointer;
             margin-bottom: 10px;
+            transition: transform 0.15s ease;
         }
+        .primary-btn:active { transform: scale(0.98); }
 
         .getkey-btn {
             width: 100%;
-            padding: 13px;
-            background: rgba(139, 92, 246, 0.16);
-            border: 1px solid rgba(139, 92, 246, 0.5);
+            padding: 14px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.22), rgba(59, 130, 246, 0.22));
+            border: 1px solid rgba(139, 92, 246, 0.55);
             border-radius: 14px;
-            color: #d8b4fe;
-            font-size: 0.88rem;
+            color: #e9d5ff;
+            font-size: 0.9rem;
             font-weight: 700;
             cursor: pointer;
             transition: opacity 0.2s;
         }
-        .getkey-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .getkey-btn:disabled { opacity: 0.55; cursor: not-allowed; }
 
-        .test-step-btn {
-            width: 100%;
-            padding: 10px;
-            background: transparent;
-            border: 1px dashed #3f3f46;
-            border-radius: 12px;
-            color: #a1a1aa;
-            font-size: 0.76rem;
+        .error-text { color: var(--danger); font-size: 0.8rem; text-align: center; margin-top: 10px; }
+
+        /* Màn hình Chuyển tiếp Bước 1 -> Bước 2 & Trang Nhận Key */
+        .reward-key-display {
+            background: rgba(52, 199, 89, 0.1);
+            border: 1.5px dashed var(--success);
+            border-radius: 16px;
+            padding: 18px 14px;
+            margin: 16px 0;
+        }
+        .reward-badge {
+            display: inline-block;
+            background: rgba(52, 199, 89, 0.2);
+            color: var(--success);
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .reward-key-code {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #fff;
+            margin: 6px 0 10px 0;
+            word-break: break-all;
+        }
+        .timer-pill {
+            font-size: 0.78rem;
+            color: var(--warning);
             font-weight: 600;
-            cursor: pointer;
-            margin-top: 8px;
         }
 
-        .error-text { color: #ff453a; font-size: 0.8rem; text-align: center; margin-top: 10px; }
+        .spinner {
+            width: 42px;
+            height: 42px;
+            border: 3.5px solid rgba(139, 92, 246, 0.25);
+            border-top-color: #a855f7;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 16px auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* Main Header */
         .main-header {
@@ -485,11 +489,12 @@
         </svg>
     </div>
 
-    <!-- KHUNG MENU CHÍNH -->
     <div id="mainWrapper" class="phone-wrapper">
         
-        <!-- 1. MÀN HÌNH ĐĂNG NHẬP & VƯỢT LINK NHIỀU BƯỚC -->
-        <div id="screenLogin" class="login-card">
+        <!-- ============================================== -->
+        <!-- MÀN HÌNH 1: ĐĂNG NHẬP & BẮT ĐẦU LẤY KEY FREE   -->
+        <!-- ============================================== -->
+        <div id="screenLogin" class="card-panel">
             <div class="login-logo-wrap">
                 <div class="night-logo" style="width: 72px; height: 72px; border-radius: 20px;">
                     <svg viewBox="0 0 100 100" width="56" height="56">
@@ -517,44 +522,82 @@
                 </div>
             </div>
             <div class="login-title">NIGHT <span>IOS</span> FF</div>
-            <div class="login-sub">Trợ lý trong game • v1.0.0</div>
+            <div class="login-sub">Hệ Thống Cấp Key Tự Động • Lưu Key 24H</div>
 
-            <!-- Thanh Tiến Độ Vượt Link -->
-            <div id="stepProgressContainer" class="step-box">
+            <div class="step-box">
                 <div class="step-header">
-                    <span>TIẾN ĐỘ NHẬN KEY</span>
-                    <span id="stepCounterText">0 / 2 bước</span>
+                    <span>TIẾN ĐỘ VƯỢT LINK</span>
+                    <span id="loginStepText">0 / 2 Lần</span>
                 </div>
                 <div class="progress-track">
-                    <div id="stepProgressBar" class="progress-fill"></div>
+                    <div id="loginStepBar" class="progress-fill"></div>
                 </div>
-                <div id="stepStatusDesc" class="step-desc">
-                    Vượt đủ số bước quy định để hệ thống tự động cấp Key mới.
+                <div id="loginStepDesc" class="step-desc">
+                    Ấn nút <b>Lấy Key Free</b> bên dưới để vượt 2 lần link Ontops và nhận Key có hạn 24 giờ.
                 </div>
-            </div>
-
-            <!-- Khung hiển thị Key sau khi vượt đủ bước -->
-            <div id="receivedKeyBox" class="received-key-box hidden">
-                <span>🎉 Bạn Đã Vượt Đủ Bước! Key Của Bạn:</span>
-                <div id="receivedKeyText" class="received-key-val">---</div>
-                <button class="copy-btn" onclick="copyGeneratedKey()">📋 Sao Chép Key</button>
             </div>
 
             <div class="input-group">
-                <label>Nhập Key Kích Hoạt</label>
-                <input type="text" id="keyField" class="key-input" placeholder="Nhập key của bạn vào đây...">
+                <label>Mã Key Kích Hoạt (24H)</label>
+                <input type="text" id="keyField" class="key-input" placeholder="Nhập hoặc dán Key vào đây...">
             </div>
 
             <button class="primary-btn" onclick="submitKey()">Đăng Nhập Menu</button>
-            <button id="btnGetKey" class="getkey-btn" onclick="handleGetKey()">🔗 Lấy Key Miễn Phí (Bước 1/2)</button>
-            
-            <!-- Nút hỗ trợ bạn tự test luồng nhảy bước ngay trên web -->
-            <button class="test-step-btn" onclick="simulateStepTest()">⚡ Chế độ Admin: Bấm để Test nhảy 1 bước vượt link</button>
-
+            <button id="btnGetKey" class="getkey-btn" onclick="startStepProcess()">🔗 Lấy Key Free (Vượt Link 2 Lần)</button>
             <div id="loginError" class="error-text"></div>
         </div>
 
-        <!-- 2. TRANG CHỦ DASHBOARD -->
+        <!-- ============================================== -->
+        <!-- MÀN HÌNH PHỤ A: TỰ ĐỘNG CHUYỂN TIẾP LẦN 2/2    -->
+        <!-- ============================================== -->
+        <div id="screenStep2Redirect" class="card-panel hidden">
+            <div class="reward-badge">✅ Hoàn thành Lần 1 / 2</div>
+            <div class="login-title" style="margin-top: 6px;">Đang Chuyển Lần 2...</div>
+            <p class="login-sub" style="margin-top: 6px;">
+                Bạn đã vượt xong Lần 1! Hệ thống đang tự động tạo link Ontops <b>Lần 2/2</b> để cấp Key 24h cho bạn.
+            </p>
+            <div class="spinner" id="step2Spinner"></div>
+            <div class="step-box" style="text-align: center;">
+                <div class="step-header" style="justify-content: center;">
+                    <span>TIẾN ĐỘ: 1 / 2 LẦN (50%)</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: 50%;"></div>
+                </div>
+            </div>
+            <button id="btnManualStep2" class="primary-btn" onclick="triggerStep2Redirect()">
+                👉 Bấm Vào Đây Để Tiếp Tục Lần 2/2
+            </button>
+            <div id="step2Error" class="error-text"></div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- MÀN HÌNH PHỤ B: TRANG NHẬN KEY 24H             -->
+        <!-- ============================================== -->
+        <div id="screenKeyReward" class="card-panel hidden">
+            <div class="reward-badge">🎉 Hoàn thành đủ 2 / 2 Lần</div>
+            <div class="login-title">TRANG NHẬN <span>KEY 24H</span></div>
+            <p class="login-sub" style="margin-top: 4px; margin-bottom: 12px;">
+                Key đã được hệ thống tự động tạo và lưu trực tiếp vào trình duyệt của bạn trong 24 giờ!
+            </p>
+
+            <div class="reward-key-display">
+                <div style="font-size: 0.72rem; color: var(--text-sub); text-transform: uppercase;">MÃ KEY CỦA BẠN</div>
+                <div id="rewardKeyString" class="reward-key-code">NIGHT-XXXXXX</div>
+                <div class="timer-pill">⏳ Thời hạn còn lại: <span id="rewardCountdown">23:59:59</span></div>
+            </div>
+
+            <button class="primary-btn" onclick="copyAndEnterMenu()">
+                ⚡ Sao Chép Key & Vào Menu Ngay
+            </button>
+            <button class="getkey-btn" onclick="justCopyKey()">
+                📋 Chỉ Sao Chép Key
+            </button>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- MÀN HÌNH 2: TRANG CHỦ DASHBOARD                -->
+        <!-- ============================================== -->
         <div id="screenDashboard" class="hidden" style="display: flex; flex-direction: column; gap: 12px;">
             
             <div class="main-header">
@@ -646,7 +689,7 @@
                 <div class="list-left" style="gap: 10px;">
                     <div style="font-size: 16px;">🔑</div>
                     <div>
-                        <div style="font-size: 0.65rem; color: var(--text-sub);">KEY ĐANG DÙNG</div>
+                        <div style="font-size: 0.65rem; color: var(--text-sub);">KEY ĐANG DÙNG (<span id="dashboardKeyTimer" style="color: #34c759;">24H</span>)</div>
                         <div id="keyDisplay" style="font-size: 0.85rem; font-weight: 700; color: #fff;">--</div>
                     </div>
                 </div>
@@ -654,7 +697,9 @@
             </div>
         </div>
 
-        <!-- 3. MÀN HÌNH CHỨC NĂNG -->
+        <!-- ============================================== -->
+        <!-- MÀN HÌNH 3: CHỨC NĂNG ESP / AIM / MISC / ẨN    -->
+        <!-- ============================================== -->
         <div id="screenDetail" class="hidden" style="display: flex; flex-direction: column; gap: 12px;">
             <div class="nav-bar">
                 <div class="nav-left">
@@ -782,262 +827,356 @@
 
     <script>
         // ========================================================
-        // CẤU HÌNH HỆ THỐNG API ONTOPS & SỐ LẦN VƯỢT LINK
+        // CẤU HÌNH API ONTOPS & THỜI HẠN KEY 24H
         // ========================================================
         const CONFIG = {
             apiKey: "0ff1d21c4cd846cfb140a56bb354865e",
             apiEndpoint: "https://api-management.ontops.link/api/public/create-short-link",
-            requiredSteps: 2, // <-- CHỈNH SỐ LẦN VƯỢT LINK TẠI ĐÂY (VD: 2 lần mới có key)
-            masterKeys: [
-                "NIGHT-TEST-9999", // <-- KEY TEST CHO BẠN VÀO THẲNG
-                "NIGHT-VIP-8888"
-            ]
+            requiredSteps: 2,                  // Vượt 2 lần mới có key
+            keyTTL: 24 * 60 * 60 * 1000,       // 24 giờ (tính bằng mili-giây)
+            adminKeys: ["NIGHT-TEST-9999", "NIGHT-VIP-8888"]
         };
 
-        // Lấy danh sách các Key hợp lệ (bao gồm Key Test + các Key đã sinh ra)
-        function getValidKeys() {
-            let stored = localStorage.getItem("night_valid_keys");
-            let list = stored ? JSON.parse(stored) : [];
-            return Array.from(new Set([...CONFIG.masterKeys, ...list]));
-        }
+        const STORAGE_KEYS = {
+            KEY_DATA: "night_24h_key_record",  // Lưu { key, expiresAt }
+            ACTIVE_LOGIN: "night_logged_in_key",
+            STEP_PROGRESS: "night_step_count",
+            STEP_TOKEN: "night_step_token"
+        };
 
-        function saveGeneratedKey(newKey) {
-            let list = getValidKeys();
-            if (!list.includes(newKey)) {
-                list.push(newKey);
-                localStorage.setItem("night_valid_keys", JSON.stringify(list));
-            }
-        }
+        let cachedStep2ShortUrl = null;
 
-        // Tạo mã ngẫu nhiên
-        function randomString(len) {
+        // Sinh chuỗi ngẫu nhiên
+        function randomCode(len = 6) {
             const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-            let out = "";
+            let res = "";
             for (let i = 0; i < len; i++) {
-                out += chars.charAt(Math.floor(Math.random() * chars.length));
+                res += chars.charAt(Math.floor(Math.random() * chars.length));
             }
-            return out;
+            return res;
         }
 
-        // Quản lý số bước đã vượt
-        function getCurrentStep() {
-            return parseInt(localStorage.getItem("night_current_step") || "0", 10);
-        }
+        // Kiểm tra Key 24h đang lưu trong máy còn hạn hay không
+        function getSaved24hKeyData() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEYS.KEY_DATA);
+                if (!raw) return null;
+                const data = JSON.parse(raw);
+                if (!data.key || !data.expiresAt) return null;
 
-        function setCurrentStep(step) {
-            localStorage.setItem("night_current_step", step.toString());
-            updateStepUI();
-        }
-
-        // Cập nhật giao diện thanh tiến độ và nút bấm
-        function updateStepUI() {
-            const step = getCurrentStep();
-            const total = CONFIG.requiredSteps;
-            const percent = Math.min(100, Math.round((step / total) * 100));
-
-            document.getElementById("stepCounterText").innerText = `${step} / ${total} bước`;
-            document.getElementById("stepProgressBar").style.width = `${percent}%`;
-
-            const btn = document.getElementById("btnGetKey");
-            const desc = document.getElementById("stepStatusDesc");
-
-            if (step < total) {
-                btn.innerText = `🔗 Lấy Key Miễn Phí (Bước ${step + 1}/${total})`;
-                if (step === 0) {
-                    desc.innerText = `Bạn cần vượt ${total} lần link rút gọn để nhận Key kích hoạt.`;
-                } else {
-                    desc.innerText = `✅ Đã xong ${step}/${total} bước! Hãy bấm nút bên dưới để vượt tiếp Bước ${step + 1}.`;
-                    desc.style.color = "#34c759";
+                // Nếu đã quá 24h -> tự động xoá sạch
+                if (Date.now() >= data.expiresAt) {
+                    localStorage.removeItem(STORAGE_KEYS.KEY_DATA);
+                    localStorage.removeItem(STORAGE_KEYS.ACTIVE_LOGIN);
+                    return null;
                 }
-            } else {
-                btn.innerText = `🔄 Tạo Key Mới Khác (Vượt Lại Từ Đầu)`;
-                desc.innerText = `🎉 Đã hoàn thành đủ ${total}/${total} bước!`;
-                desc.style.color = "#34c759";
+                return data;
+            } catch (e) {
+                return null;
             }
         }
 
-        // Xử lý khi vừa tải trang (Kiểm tra xem khách vừa vượt xong 1 bước quay về hay không)
-        window.addEventListener("DOMContentLoaded", () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const verifyToken = urlParams.get("verify_token");
-            const expectedToken = localStorage.getItem("night_pending_token");
+        // Tạo mới và lưu Key trong 24h
+        function generateAndSave24hKey() {
+            const existing = getSaved24hKeyData();
+            if (existing) return existing;
 
-            // Nếu khớp mã token bảo mật của bước vừa vượt
-            if (verifyToken && expectedToken && verifyToken === expectedToken) {
-                localStorage.removeItem("night_pending_token"); // Xoá token để chống F5 tăng bước
-                let nextStep = getCurrentStep() + 1;
-                setCurrentStep(nextStep);
+            const newKey = "NIGHT-" + randomCode(6);
+            const record = {
+                key: newKey,
+                createdAt: Date.now(),
+                expiresAt: Date.now() + CONFIG.keyTTL
+            };
+            localStorage.setItem(STORAGE_KEYS.KEY_DATA, JSON.stringify(record));
+            return record;
+        }
 
-                // Xoá tham số trên thanh địa chỉ cho sạch
-                window.history.replaceState({}, document.title, window.location.pathname);
+        // Định dạng đồng hồ đếm ngược HH:MM:SS
+        function formatRemainingTime(expiresAt) {
+            const diff = Math.max(0, expiresAt - Date.now());
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+            return [hours, mins, secs].map(v => String(v).padStart(2, "0")).join(":");
+        }
 
-                // Kiểm tra xem đã đủ số lần vượt quy định chưa
-                if (nextStep >= CONFIG.requiredSteps) {
-                    const newKey = "NIGHT-" + randomString(8);
-                    saveGeneratedKey(newKey);
-                    localStorage.setItem("night_last_reward_key", newKey);
-                    showRewardKey(newKey);
+        // Bộ đếm thời gian chạy mỗi giây
+        setInterval(() => {
+            const data = getSaved24hKeyData();
+            const activeKey = localStorage.getItem(STORAGE_KEYS.ACTIVE_LOGIN);
+
+            if (data) {
+                const timeStr = formatRemainingTime(data.expiresAt);
+                const rewardTimer = document.getElementById("rewardCountdown");
+                const dashTimer = document.getElementById("dashboardKeyTimer");
+                if (rewardTimer) rewardTimer.innerText = timeStr;
+                if (dashTimer && activeKey === data.key) dashTimer.innerText = "Còn " + timeStr;
+            } else if (activeKey && !CONFIG.adminKeys.includes(activeKey)) {
+                // Hết hạn 24h khi đang dùng -> Tự động văng ra màn hình đăng nhập
+                logout();
+                document.getElementById("loginError").innerText = "Key 24h của bạn đã hết hạn! Vui lòng vượt link lấy Key mới.";
+            }
+        }, 1000);
+
+        // Hàm gọi API Ontops chống lỗi CORS (Đua song song các kênh để lấy link cực nhanh)
+        async function buildOntopsUrl(callbackUrl) {
+            const rawApiUrl = `${CONFIG.apiEndpoint}?apikey=${CONFIG.apiKey}&url=${encodeURIComponent(callbackUrl)}`;
+
+            // Hàm bóc tách link rút gọn từ mọi định dạng JSON hoặc Text mà Ontops trả về
+            function extractShortUrl(text) {
+                if (!text) return null;
+                const clean = text.trim();
+                if (/^https?:\/\/[^\s"'<>]+$/i.test(clean) && !clean.includes("api-management.ontops.link")) {
+                    return clean;
                 }
-            } else {
-                // Nếu đã có key vừa nhận trước đó thì hiển thị lại
-                const lastReward = localStorage.getItem("night_last_reward_key");
-                if (lastReward && getCurrentStep() >= CONFIG.requiredSteps) {
-                    showRewardKey(lastReward);
-                }
-            }
-
-            updateStepUI();
-
-            // Tự động đăng nhập nếu phiên cũ còn lưu
-            const savedActiveKey = localStorage.getItem("night_active_key");
-            if (savedActiveKey && getValidKeys().includes(savedActiveKey)) {
-                loginSuccess(savedActiveKey);
-            }
-        });
-
-        function showRewardKey(key) {
-            document.getElementById("receivedKeyBox").classList.remove("hidden");
-            document.getElementById("receivedKeyText").innerText = key;
-            document.getElementById("keyField").value = key;
-        }
-
-        function copyGeneratedKey() {
-            const key = document.getElementById("receivedKeyText").innerText;
-            navigator.clipboard.writeText(key);
-            alert("Đã sao chép Key: " + key);
-        }
-
-        // Hàm gọi API Ontops.link để tạo link rút gọn cho từng bước
-        async function createOntopsShortLink(destinationUrl) {
-            const targetApi = `${CONFIG.apiEndpoint}?apikey=${CONFIG.apiKey}&url=${encodeURIComponent(destinationUrl)}`;
-
-            // Thử gọi trực tiếp hoặc qua CORS Proxy (phòng trường hợp trình duyệt chặn CORS)
-            const endpointsToTry = [
-                targetApi,
-                `https://api.allorigins.win/raw?url=${encodeURIComponent(targetApi)}`,
-                `https://corsproxy.io/?${encodeURIComponent(targetApi)}`
-            ];
-
-            for (const url of endpointsToTry) {
                 try {
-                    const res = await fetch(url);
-                    if (!res.ok) continue;
-                    const text = await res.text();
+                    const obj = JSON.parse(clean);
+                    // Nếu bọc qua allorigins /get
+                    const innerContent = typeof obj.contents === "string" ? obj.contents : clean;
+                    const parsed = typeof obj.contents === "string" ? JSON.parse(innerContent) : obj;
 
-                    // Nếu API trả về chuỗi URL trực tiếp
-                    if (text.trim().startsWith("http")) {
-                        return text.trim();
+                    const directCandidate =
+                        parsed.shortenedUrl ||
+                        parsed.short_url ||
+                        parsed.shortUrl ||
+                        parsed.url ||
+                        parsed.link ||
+                        parsed.result ||
+                        (parsed.data && (parsed.data.shortenedUrl || parsed.data.short_url || parsed.data.shortUrl || parsed.data.url || parsed.data.link || (typeof parsed.data === "string" ? parsed.data : null)));
+
+                    if (typeof directCandidate === "string" && directCandidate.startsWith("http")) {
+                        return directCandidate;
                     }
+                } catch (e) {}
 
-                    // Nếu API trả về JSON
-                    const data = JSON.parse(text);
-                    const shortUrl =
-                        data.shortenedUrl ||
-                        data.short_url ||
-                        data.shortUrl ||
-                        data.url ||
-                        data.link ||
-                        (data.data && (data.data.shortenedUrl || data.data.short_url || data.data.shortUrl || data.data.url || data.data.link));
-
-                    if (shortUrl) return shortUrl;
-                } catch (e) {
-                    // Thử phương án dự phòng tiếp theo
+                // Quét Regex tìm URL rút gọn của Ontops trong chuỗi phản hồi
+                const matches = clean.match(/https?:\/\/[^\s"'<>\\]+/g) || [];
+                for (const m of matches) {
+                    if (!m.includes("api-management.ontops.link") && !m.includes(window.location.host)) {
+                        return m;
+                    }
                 }
+                return null;
             }
-            return null;
+
+            const fetchAttempt = async (endpoint) => {
+                const controller = new AbortController();
+                const timer = setTimeout(() => controller.abort(), 6500);
+                try {
+                    const res = await fetch(endpoint, { signal: controller.signal });
+                    clearTimeout(timer);
+                    if (!res.ok) throw new Error("HTTP " + res.status);
+                    const text = await res.text();
+                    const found = extractShortUrl(text);
+                    if (!found) throw new Error("No URL in response");
+                    return found;
+                } catch (err) {
+                    clearTimeout(timer);
+                    throw err;
+                }
+            };
+
+            try {
+                // Thử đồng thời kênh trực tiếp và các CORS Proxy tốc độ cao
+                return await Promise.any([
+                    fetchAttempt(rawApiUrl),
+                    fetchAttempt(`https://corsproxy.io/?${encodeURIComponent(rawApiUrl)}`),
+                    fetchAttempt(`https://api.allorigins.win/raw?url=${encodeURIComponent(rawApiUrl)}`),
+                    fetchAttempt(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(rawApiUrl)}`)
+                ]);
+            } catch (err) {
+                return null;
+            }
         }
 
-        // Xử lý khi người dùng bấm nút "Lấy Key Miễn Phí (Bước X/Y)"
-        async function handleGetKey() {
+        // Bắt đầu Bước 1 khi ấn nút "Lấy Key Free"
+        async function startStepProcess() {
             const btn = document.getElementById("btnGetKey");
             const error = document.getElementById("loginError");
             error.innerText = "";
 
-            // Nếu đã hoàn thành đủ bước mà bấm lại thì reset về bước 0 để lấy key mới
-            if (getCurrentStep() >= CONFIG.requiredSteps) {
-                localStorage.removeItem("night_last_reward_key");
-                document.getElementById("receivedKeyBox").classList.add("hidden");
-                setCurrentStep(0);
-            }
+            btn.disabled = true;
+            btn.innerText = "⏳ Đang kết nối Ontops (Lần 1/2)...";
 
-            const currentStep = getCurrentStep();
-            // Sinh token bảo mật một lần cho bước này
-            const stepToken = "TK_" + randomString(12);
-            localStorage.setItem("night_pending_token", stepToken);
+            const token1 = "S1_" + randomCode(10);
+            localStorage.setItem(STORAGE_KEYS.STEP_TOKEN, token1);
+            localStorage.setItem(STORAGE_KEYS.STEP_PROGRESS, "0");
 
             const baseUrl = window.location.origin + window.location.pathname;
-            const callbackUrl = `${baseUrl}?verify_token=${encodeURIComponent(stepToken)}`;
+            const callbackStep1 = `${baseUrl}?step_done=1&tk=${encodeURIComponent(token1)}`;
 
-            btn.disabled = true;
-            btn.innerText = `⏳ Đang tạo link vượt (Bước ${currentStep + 1}/${CONFIG.requiredSteps})...`;
+            const shortUrl1 = await buildOntopsUrl(callbackStep1);
 
-            const shortLink = await createOntopsShortLink(callbackUrl);
-
-            if (shortLink) {
-                window.location.href = shortLink;
+            if (shortUrl1) {
+                window.location.href = shortUrl1;
             } else {
                 btn.disabled = false;
-                updateStepUI();
-                error.innerText = "Không lấy được link từ Ontops (Kiểm tra lại mạng hoặc bấm nút Test bên dưới).";
+                btn.innerText = "🔗 Lấy Key Free (Vượt Link 2 Lần)";
+                error.innerText = "Không thể kết nối API Ontops! Vui lòng kiểm tra mạng hoặc thử lại.";
             }
         }
 
-        // Nút hỗ trợ bạn Test nhanh nhảy từng bước mà không cần đợi quảng cáo
-        function simulateStepTest() {
-            if (getCurrentStep() >= CONFIG.requiredSteps) {
-                localStorage.removeItem("night_last_reward_key");
-                document.getElementById("receivedKeyBox").classList.add("hidden");
-                setCurrentStep(0);
-            }
-            const stepToken = "TEST_" + randomString(8);
-            localStorage.setItem("night_pending_token", stepToken);
+        // Xử lý tự động tạo link và chuyển sang Lần 2/2
+        async function prepareAndGoStep2() {
+            const error = document.getElementById("step2Error");
+            const btn = document.getElementById("btnManualStep2");
+            error.innerText = "";
+            btn.disabled = true;
+            btn.innerText = "⏳ Đang lấy link Ontops Lần 2/2...";
+
+            const token2 = "S2_" + randomCode(10);
+            localStorage.setItem(STORAGE_KEYS.STEP_TOKEN, token2);
+
             const baseUrl = window.location.origin + window.location.pathname;
-            window.location.href = `${baseUrl}?verify_token=${encodeURIComponent(stepToken)}`;
+            const callbackStep2 = `${baseUrl}?step_done=2&tk=${encodeURIComponent(token2)}`;
+
+            const shortUrl2 = await buildOntopsUrl(callbackStep2);
+
+            if (shortUrl2) {
+                cachedStep2ShortUrl = shortUrl2;
+                btn.disabled = false;
+                btn.innerText = "👉 Bấm Vào Đây Để Tiếp Tục Lần 2/2";
+                // Tự động chuyển thẳng sang Ontops Lần 2 sau 900ms
+                setTimeout(() => {
+                    window.location.href = shortUrl2;
+                }, 900);
+            } else {
+                btn.disabled = false;
+                btn.innerText = "🔄 Thử Lại Chuyển Lần 2/2";
+                error.innerText = "Lỗi mạng khi tạo link Lần 2, hãy bấm nút trên để thử lại!";
+            }
         }
 
-        // Xử lý nút Đăng Nhập Menu
+        function triggerStep2Redirect() {
+            if (cachedStep2ShortUrl) {
+                window.location.href = cachedStep2ShortUrl;
+            } else {
+                prepareAndGoStep2();
+            }
+        }
+
+        // Kiểm tra trạng thái ngay khi tải trang
+        window.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const stepDone = params.get("step_done");
+            const urlToken = params.get("tk");
+            const savedToken = localStorage.getItem(STORAGE_KEYS.STEP_TOKEN);
+
+            // Xoá query trên thanh địa chỉ cho gọn
+            if (stepDone) {
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // TH1: Khách vừa vượt xong Lần 1/2 từ Ontops quay về
+            if (stepDone === "1" && urlToken && urlToken === savedToken) {
+                localStorage.setItem(STORAGE_KEYS.STEP_PROGRESS, "1");
+                showOnlyScreen("screenStep2Redirect");
+                prepareAndGoStep2();
+                return;
+            }
+
+            // TH2: Khách vừa vượt xong Lần 2/2 từ Ontops quay về -> Mở Trang Nhận Key 24h
+            if (stepDone === "2" && urlToken && urlToken === savedToken) {
+                localStorage.removeItem(STORAGE_KEYS.STEP_TOKEN);
+                localStorage.setItem(STORAGE_KEYS.STEP_PROGRESS, "2");
+                localStorage.removeItem(STORAGE_KEYS.KEY_DATA); // Tạo key 24h mới tinh
+                const newRecord = generateAndSave24hKey();
+                openRewardScreen(newRecord);
+                return;
+            }
+
+            // TH3: Kiểm tra nếu trong máy đã có Key 24h còn hạn
+            const valid24h = getSaved24hKeyData();
+            if (valid24h) {
+                document.getElementById("keyField").value = valid24h.key;
+                document.getElementById("loginStepText").innerText = "2 / 2 Lần (Đã có Key)";
+                document.getElementById("loginStepBar").style.width = "100%";
+                document.getElementById("loginStepDesc").innerHTML =
+                    `✅ Key 24h của bạn đã được tự động điền: <b style="color:#34c759">${valid24h.key}</b>`;
+            }
+
+            // Tự động vào thẳng Dashboard nếu phiên đăng nhập còn hạn
+            const activeLogin = localStorage.getItem(STORAGE_KEYS.ACTIVE_LOGIN);
+            if (activeLogin && isKeyValid(activeLogin)) {
+                loginSuccess(activeLogin);
+            }
+        });
+
+        function showOnlyScreen(screenId) {
+            ["screenLogin", "screenStep2Redirect", "screenKeyReward", "screenDashboard", "screenDetail"].forEach(id => {
+                document.getElementById(id).classList.add("hidden");
+            });
+            document.getElementById(screenId).classList.remove("hidden");
+        }
+
+        function openRewardScreen(record) {
+            showOnlyScreen("screenKeyReward");
+            document.getElementById("rewardKeyString").innerText = record.key;
+            document.getElementById("rewardCountdown").innerText = formatRemainingTime(record.expiresAt);
+            document.getElementById("keyField").value = record.key;
+        }
+
+        function copyAndEnterMenu() {
+            const data = getSaved24hKeyData();
+            if (!data) return;
+            navigator.clipboard.writeText(data.key).catch(() => {});
+            localStorage.setItem(STORAGE_KEYS.ACTIVE_LOGIN, data.key);
+            loginSuccess(data.key);
+        }
+
+        function justCopyKey() {
+            const data = getSaved24hKeyData();
+            if (!data) return;
+            navigator.clipboard.writeText(data.key).catch(() => {});
+            alert("Đã sao chép Key 24h: " + data.key);
+            showOnlyScreen("screenLogin");
+        }
+
+        function isKeyValid(inputKey) {
+            if (CONFIG.adminKeys.includes(inputKey)) return true;
+            const data = getSaved24hKeyData();
+            return data && data.key === inputKey;
+        }
+
         function submitKey() {
             const inputKey = document.getElementById("keyField").value.trim().toUpperCase();
             const error = document.getElementById("loginError");
 
             if (!inputKey) {
-                error.innerText = "Vui lòng nhập Key để tiếp tục!";
+                error.innerText = "Vui lòng nhập Key hoặc bấm Lấy Key Free!";
                 return;
             }
 
-            if (getValidKeys().includes(inputKey)) {
+            if (isKeyValid(inputKey)) {
                 error.innerText = "";
-                localStorage.setItem("night_active_key", inputKey);
+                localStorage.setItem(STORAGE_KEYS.ACTIVE_LOGIN, inputKey);
                 loginSuccess(inputKey);
             } else {
-                error.innerText = "Key không hợp lệ hoặc bạn chưa vượt đủ bước!";
+                error.innerText = "Key không hợp lệ hoặc đã hết hạn 24h! Vui lòng lấy Key mới.";
             }
         }
 
         function loginSuccess(key) {
             document.getElementById("keyDisplay").innerText = key;
-            document.getElementById("screenLogin").classList.add("hidden");
-            document.getElementById("screenDashboard").classList.remove("hidden");
+            if (CONFIG.adminKeys.includes(key)) {
+                document.getElementById("dashboardKeyTimer").innerText = "VĨNH VIỄN";
+            }
+            showOnlyScreen("screenDashboard");
         }
 
         function logout() {
-            localStorage.removeItem("night_active_key");
-            document.getElementById("screenDashboard").classList.add("hidden");
-            document.getElementById("screenDetail").classList.add("hidden");
-            document.getElementById("screenLogin").classList.remove("hidden");
-            document.getElementById("keyField").value = "";
+            localStorage.removeItem(STORAGE_KEYS.ACTIVE_LOGIN);
+            showOnlyScreen("screenLogin");
         }
 
         function openGameMenu(gameName) {
             document.getElementById("detailGameTitle").innerText = gameName;
-            document.getElementById("screenDashboard").classList.add("hidden");
-            document.getElementById("screenDetail").classList.remove("hidden");
+            showOnlyScreen("screenDetail");
             switchTab('esp');
         }
 
         function backToDashboard() {
-            document.getElementById("screenDetail").classList.add("hidden");
-            document.getElementById("screenDashboard").classList.remove("hidden");
+            showOnlyScreen("screenDashboard");
         }
 
         function switchTab(tab) {
