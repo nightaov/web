@@ -2,115 +2,670 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIGHT IOS FF - Client Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NIGHT IOS FF</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-        body { background-color: #0c0c0e; color: #f3f4f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 16px; }
-        
-        .card { width: 100%; max-width: 400px; background: #141416; border-radius: 20px; padding: 20px; border: 1px solid #27272a; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        :root {
+            --bg-color: #0b0b0e;
+            --card-bg: #141416;
+            --item-bg: #1a1a1e;
+            --border-color: #26262a;
+            --text-main: #ffffff;
+            --text-sub: #8e8e93;
+            --accent: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 12px;
+        }
+
+        .phone-wrapper {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-bottom: 24px;
+        }
+
         .hidden { display: none !important; }
 
-        /* Login Screen */
-        h2 { font-size: 1.4rem; color: #fff; text-align: center; margin-bottom: 6px; }
-        p.subtitle { font-size: 0.85rem; color: #9ca3af; text-align: center; margin-bottom: 20px; }
-        .input-group { margin-bottom: 16px; }
-        label { display: block; font-size: 0.85rem; margin-bottom: 6px; color: #d1d5db; }
-        input[type="text"] { width: 100%; padding: 12px; background: #1c1c1f; border: 1px solid #3f3f46; border-radius: 10px; color: #fff; font-size: 1rem; outline: none; transition: border-color 0.2s; }
-        input[type="text"]:focus { border-color: #fff; }
-        .primary-btn { width: 100%; padding: 12px; background: #fff; border: none; border-radius: 12px; color: #000; font-size: 1rem; font-weight: bold; cursor: pointer; transition: opacity 0.2s; }
-        .primary-btn:hover { opacity: 0.9; }
-        #errorMsg { color: #f87171; font-size: 0.8rem; text-align: center; margin-top: 10px; }
+        /* Login Card */
+        .login-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 24px 20px;
+            margin-top: 40px;
+        }
+        .login-title { font-size: 1.4rem; font-weight: 700; text-align: center; margin-bottom: 6px; }
+        .login-sub { font-size: 0.8rem; color: var(--text-sub); text-align: center; margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 0.75rem; color: var(--text-sub); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--item-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            margin-bottom: 12px;
+        }
+        .key-input:focus { border-color: #555; }
+        .primary-btn {
+            width: 100%;
+            padding: 14px;
+            background: #fff;
+            border: none;
+            border-radius: 14px;
+            color: #000;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .error-text { color: #ff453a; font-size: 0.8rem; text-align: center; margin-top: 10px; }
 
-        /* Dashboard Screen */
-        .header { display: flex; justify-content: space-between; align-items: center; background: #1c1c1f; padding: 14px; border-radius: 14px; margin-bottom: 16px; border: 1px solid #2b2b2f; }
-        .header-info h3 { font-size: 1rem; color: #fff; margin-bottom: 2px; }
-        .header-info p { font-size: 0.7rem; color: #9ca3af; }
-        .settings-icon { font-size: 1.2rem; cursor: pointer; }
+        /* Main Header */
+        .main-header {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 18px 16px;
+        }
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .app-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .app-icon {
+            width: 52px;
+            height: 52px;
+            background: #fff;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: #000;
+        }
+        .app-title h2 { font-size: 1.15rem; font-weight: 700; }
+        .app-title p { font-size: 0.8rem; color: var(--text-sub); margin-top: 2px; }
+        .settings-btn {
+            width: 36px;
+            height: 36px;
+            background: var(--item-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+        }
 
-        .section-title { font-size: 0.8rem; font-weight: bold; color: #71717a; text-transform: uppercase; margin: 16px 0 8px 4px; letter-spacing: 0.5px; }
-        
-        /* Image Showcase Grid */
-        .image-gallery { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
-        .image-card { background: #1c1c1f; border-radius: 14px; padding: 10px; border: 1px solid #2b2b2f; text-align: center; }
-        .image-card img { width: 100%; border-radius: 10px; height: auto; display: block; margin-bottom: 8px; }
-        .image-card span { font-size: 0.75rem; color: #9ca3af; font-weight: 500; }
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-top: 1px solid var(--border-color);
+            padding-top: 14px;
+            text-align: center;
+        }
+        .stat-col {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .stat-col:not(:last-child) { border-right: 1px solid var(--border-color); }
+        .stat-label { font-size: 0.65rem; color: var(--text-sub); text-transform: uppercase; font-weight: 600; }
+        .stat-val { font-size: 0.85rem; font-weight: 600; }
 
-        .logout-btn { background: #ef4444; color: white; margin-top: 16px; }
+        /* Section Items */
+        .list-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+        .list-left { display: flex; align-items: center; gap: 14px; }
+        .icon-circle {
+            width: 40px;
+            height: 40px;
+            background: var(--item-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        .list-info h4 { font-size: 0.95rem; font-weight: 600; }
+        .list-info p { font-size: 0.72rem; color: var(--text-sub); margin-top: 2px; }
+        .list-status { font-size: 0.75rem; color: var(--text-sub); display: flex; align-items: center; gap: 6px; }
+        .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #34c759; }
+
+        .section-header {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 6px 4px 0 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Switch UI */
+        .switch { position: relative; display: inline-block; width: 50px; height: 28px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; inset: 0; background-color: #39393d; transition: .25s; border-radius: 28px; }
+        .slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 3px; bottom: 3px; background-color: white; transition: .25s; border-radius: 50%; }
+        input:checked + .slider { background-color: #fff; }
+        input:checked + .slider:before { transform: translateX(22px); background-color: #000; }
+
+        /* Secondary Page (Detail Menu) */
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+        .back-circle {
+            width: 38px;
+            height: 38px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .nav-title h3 { font-size: 1.1rem; }
+        .nav-title p { font-size: 0.75rem; color: var(--text-sub); }
+
+        .tabs-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 4px;
+            gap: 4px;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-sub);
+            font-weight: 700;
+            padding: 10px;
+            font-size: 0.85rem;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        .tab-btn.active {
+            background: #fff;
+            color: #000;
+        }
+
+        /* Detail feature items */
+        .menu-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .setting-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 14px 16px;
+        }
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .setting-info h5 { font-size: 0.9rem; font-weight: 600; }
+        .setting-info p { font-size: 0.72rem; color: var(--text-sub); margin-top: 2px; }
+
+        .color-badge {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #ff3b30;
+            border: 2px solid #fff;
+        }
+
+        /* Sub-controls */
+        .segmented-control {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            background: var(--item-bg);
+            border-radius: 12px;
+            padding: 3px;
+            margin-top: 12px;
+            gap: 4px;
+        }
+        .segment-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-sub);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .segment-btn.active {
+            background: #fff;
+            color: #000;
+        }
+
+        .range-wrapper {
+            margin-top: 14px;
+        }
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+        input[type=range] {
+            width: 100%;
+            accent-color: #fff;
+        }
+
+        .inject-btn {
+            background: #fff;
+            border-radius: 18px;
+            padding: 16px;
+            border: none;
+            color: #000;
+            font-weight: 800;
+            font-size: 1rem;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+        }
+        .inject-sub { font-size: 0.7rem; font-weight: 500; opacity: 0.8; }
+        .note-text { text-align: center; font-size: 0.75rem; color: #636366; margin-top: 6px; }
     </style>
 </head>
 <body>
 
-    <!-- MẬT KHẨU / NHẬP API KEY -->
-    <div id="loginCard" class="card">
-        <h2>NIGHT IOS FF</h2>
-        <p class="subtitle">Vui lòng nhập API Key để truy cập Client</p>
-        <div class="input-group">
-            <label>API Key bản quyền</label>
-            <input type="text" id="apiKeyInput" placeholder="Nhập key của bạn (VD: NIGHT-2026-X)...">
-        </div>
-        <button class="primary-btn" onclick="verifyKey()">Xác Thực Key</button>
-        <div id="errorMsg"></div>
-    </div>
-
-    <!-- GIAO DIỆN CHÍNH SAU KHI NHẬP KEY -->
-    <div id="dashboardCard" class="card hidden">
-        <div class="header">
-            <div class="header-info">
-                <h3>👑 NIGHT IOS FF</h3>
-                <p>Trợ lý trong game • v1.0.0 (Đã kích hoạt)</p>
+    <div class="phone-wrapper">
+        <!-- 1. MÀN HÌNH NHẬP KEY -->
+        <div id="screenLogin" class="login-card">
+            <div class="login-title">NIGHT IOS FF</div>
+            <div class="login-sub">Trợ lý trong game • Phiên bản demo</div>
+            <div class="input-group">
+                <label>Nhập API Key</label>
+                <input type="text" id="keyField" class="key-input" placeholder="Ví dụ: NIGHT-2026-VIP">
             </div>
-            <div class="settings-icon">⚙️</div>
+            <button class="primary-btn" onclick="submitKey()">Kích Hoạt & Mở Menu</button>
+            <div id="loginError" class="error-text"></div>
         </div>
 
-        <div class="section-title">Xem trước giao diện Menu (3 Ảnh)</div>
-        
-        <!-- Khung hiển thị 3 ảnh bạn vừa gửi -->
-        <div class="image-gallery">
-            <div class="image-card">
-                <img src="image.png" alt="Menu Tổng Quan">
-                <span>1. Trang chủ & Trạng thái thiết bị</span>
+        <!-- 2. TRANG CHỦ DASHBOARD -->
+        <div id="screenDashboard" class="hidden" style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- Main Header -->
+            <div class="main-header">
+                <div class="header-top">
+                    <div class="app-badge">
+                        <div class="app-icon">👑</div>
+                        <div class="app-title">
+                            <h2>NIGHT IOS FF</h2>
+                            <p>Trợ lý trong game • v1.0.0</p>
+                        </div>
+                    </div>
+                    <div class="settings-btn">⚙️</div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-col">
+                        <span class="stat-label">📱 Thiết Bị</span>
+                        <span class="stat-val">iPhone13,2</span>
+                    </div>
+                    <div class="stat-col">
+                        <span class="stat-label">⚙️ Hệ Điều Hành</span>
+                        <span class="stat-val">iOS 18.7.8</span>
+                    </div>
+                    <div class="stat-col">
+                        <span class="stat-label">🛡️ Tương Thích</span>
+                        <span class="stat-val" style="color: #ff9f0a;">Hạn chế</span>
+                    </div>
+                </div>
             </div>
-            <div class="image-card">
-                <img src="image_2.png" alt="Tab ESP">
-                <span>2. Tính năng ESP (Box, Line, Bone, Máu...)</span>
+
+            <!-- Anti-ban Switch -->
+            <div class="list-card">
+                <div class="list-left">
+                    <div class="icon-circle">🛡️</div>
+                    <div class="list-info">
+                        <h4>Anti-ban</h4>
+                        <p>Mặc định tắt mỗi lần mở app</p>
+                    </div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
             </div>
-            <div class="image-card">
-                <img src="image_3.png" alt="Tab AIM">
-                <span>3. Tính năng AIM (Aimbot, Silent, FOV...)</span>
+
+            <!-- Reset Guest -->
+            <div class="list-card">
+                <div class="list-left">
+                    <div class="icon-circle">🔄</div>
+                    <div class="list-info">
+                        <h4>Reset Guest</h4>
+                        <p>Xoá định danh khách — mở game tạo mới</p>
+                    </div>
+                </div>
+                <div style="font-size: 1.1rem; color: var(--text-sub);">↺</div>
+            </div>
+
+            <!-- CHỌN GAME -->
+            <div class="section-header">🎮 CHỌN GAME</div>
+
+            <!-- Free Fire Item (Bấm vào để mở ESP/AIM) -->
+            <div class="list-card" onclick="openGameMenu('Free Fire')">
+                <div class="list-left">
+                    <div class="icon-circle" style="color: #ff453a;">🔥</div>
+                    <div class="list-info">
+                        <h4>Free Fire</h4>
+                        <p>Chỉnh chức năng & INJECT</p>
+                    </div>
+                </div>
+                <div class="list-status">
+                    <span class="badge-dot"></span> Đã phát hiện &rsaquo;
+                </div>
+            </div>
+
+            <!-- Free Fire MAX Item -->
+            <div class="list-card" onclick="openGameMenu('Free Fire MAX')">
+                <div class="list-left">
+                    <div class="icon-circle" style="color: #ffd60a;">⚡</div>
+                    <div class="list-info">
+                        <h4>Free Fire MAX</h4>
+                        <p>Chỉnh chức năng & INJECT</p>
+                    </div>
+                </div>
+                <div class="list-status" style="color: #636366;">
+                    Không thấy &rsaquo;
+                </div>
+            </div>
+
+            <!-- Group Telegram -->
+            <div class="list-card" style="margin-top: 6px;">
+                <div class="list-left">
+                    <div class="icon-circle" style="color: #0a84ff;">✈️</div>
+                    <div class="list-info">
+                        <h4>Group Telegram</h4>
+                        <p>Hỗ trợ • thông báo • cập nhật mới</p>
+                    </div>
+                </div>
+                <div style="color: var(--text-sub);">&rsaquo;</div>
+            </div>
+
+            <!-- Key Info Box -->
+            <div class="list-card" style="padding: 10px 16px;">
+                <div class="list-left" style="gap: 10px;">
+                    <div style="font-size: 16px;">🔑</div>
+                    <div>
+                        <div style="font-size: 0.65rem; color: var(--text-sub);">KEY</div>
+                        <div id="keyDisplay" style="font-size: 0.85rem; font-weight: 600;">--</div>
+                    </div>
+                </div>
+                <button onclick="logout()" style="background: none; border: none; color: #ff453a; font-size: 0.8rem; cursor: pointer;">Đăng xuất</button>
             </div>
         </div>
 
-        <button class="primary-btn logout-btn" onclick="logout()">Đăng Xuất / Đổi Key</button>
+        <!-- 3. MÀN HÌNH CHỨC NĂNG (ESP / AIM / MISC) -->
+        <div id="screenDetail" class="hidden" style="display: flex; flex-direction: column; gap: 12px;">
+            <div class="nav-bar">
+                <div class="back-circle" onclick="backToDashboard()">‹</div>
+                <div class="nav-title">
+                    <h3 id="detailGameTitle">Free Fire</h3>
+                    <p>Chỉnh chức năng</p>
+                </div>
+            </div>
+
+            <!-- Tabs ESP / AIM / MISC -->
+            <div class="tabs-header">
+                <button class="tab-btn active" id="tabBtnEsp" onclick="switchTab('esp')">ESP</button>
+                <button class="tab-btn" id="tabBtnAim" onclick="switchTab('aim')">AIM</button>
+                <button class="tab-btn" id="tabBtnMisc" onclick="switchTab('misc')">MISC</button>
+            </div>
+
+            <!-- TAB ESP NỘI DUNG -->
+            <div id="tabContentEsp" class="menu-group">
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Box</h5>
+                            <p>Khung quanh người & bot</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                    </div>
+                    <div class="setting-row" style="margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-color);">
+                        <div class="setting-info"><h5>Màu hiển thị</h5></div>
+                        <div class="color-badge"></div>
+                    </div>
+                </div>
+
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Line</h5>
+                            <p>Đường kẻ từ tâm ngắm</p>
+                        </div>
+                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                    </div>
+                    <div class="setting-row" style="margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-color);">
+                        <div class="setting-info"><h5>Màu hiển thị</h5></div>
+                        <div class="color-badge"></div>
+                    </div>
+                </div>
+
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Bone</h5>
+                            <p>Khung xương người (skeleton)</p>
+                        </div>
+                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                    </div>
+                </div>
+
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Máu</h5>
+                            <p>Thanh HP cho người & bot</p>
+                        </div>
+                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                    </div>
+                </div>
+
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Tên</h5>
+                            <p>Tên người chơi / bot</p>
+                        </div>
+                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB AIM NỘI DUNG -->
+            <div id="tabContentAim" class="menu-group hidden">
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Aimbot</h5>
+                            <p>Khoá địch gần tâm ngắm nhất</p>
+                        </div>
+                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                    </div>
+                </div>
+
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Aim Silent</h5>
+                            <p>Bắn lệch vẫn bay vào bone đã chọn</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                    </div>
+
+                    <div style="margin-top: 12px;">
+                        <span style="font-size: 0.75rem; color: var(--text-sub);">Vị trí khoá</span>
+                        <div class="segmented-control">
+                            <button class="segment-btn" onclick="selectBone(this)">Đầu</button>
+                            <button class="segment-btn active" onclick="selectBone(this)">Cổ</button>
+                            <button class="segment-btn" onclick="selectBone(this)">Ngực</button>
+                        </div>
+                    </div>
+
+                    <div class="range-wrapper">
+                        <div class="range-labels">
+                            <span>FOV</span>
+                            <span id="fovVal">45%</span>
+                        </div>
+                        <input type="range" min="0" max="100" value="45" oninput="document.getElementById('fovVal').innerText = this.value + '%'">
+                    </div>
+                </div>
+
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Hiện vòng FOV</h5>
+                            <p>Ẩn/hiện vòng tròn FOV trên màn hình</p>
+                        </div>
+                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                    </div>
+                </div>
+
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Bỏ qua gục</h5>
+                            <p>Không bắn vào địch đã bị hạ gục</p>
+                        </div>
+                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB MISC NỘI DUNG -->
+            <div id="tabContentMisc" class="menu-group hidden">
+                <div class="setting-box">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h5>Tốc độ di chuyển</h5>
+                            <p>Tăng độ nhạy con trỏ</p>
+                        </div>
+                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nút Inject -->
+            <div class="note-text">ⓘ Chưa kết nối được với game (Web Demo)</div>
+            <button class="inject-btn" onclick="alert('Đã gửi cấu hình giả lập!')">
+                ⚡ INJECT
+                <span class="inject-sub">cài & mở game</span>
+            </button>
+        </div>
     </div>
 
     <script>
-        // Cấp sẵn cho bạn 1 Key mẫu để test ngay lập tức:
         const VALID_KEY = "NIGHT-2026-VIP";
 
-        function verifyKey() {
-            const inputKey = document.getElementById('apiKeyInput').value.trim();
-            const errorMsg = document.getElementById('errorMsg');
-
-            if (inputKey === "") {
-                errorMsg.innerText = "Vui lòng không để trống API Key!";
+        function submitKey() {
+            const key = document.getElementById("keyField").value.trim();
+            const error = document.getElementById("loginError");
+            if (!key) {
+                error.innerText = "Vui lòng nhập API Key!";
                 return;
             }
-
-            // Kiểm tra key (bạn có thể thay đổi hoặc kết nối database sau)
-            if (inputKey === VALID_KEY || inputKey.startsWith("NIGHT-")) {
-                errorMsg.innerText = "";
-                document.getElementById('loginCard').classList.add('hidden');
-                document.getElementById('dashboardCard').classList.remove('hidden');
+            if (key === VALID_KEY || key.startsWith("NIGHT-")) {
+                error.innerText = "";
+                document.getElementById("keyDisplay").innerText = key;
+                document.getElementById("screenLogin").classList.add("hidden");
+                document.getElementById("screenDashboard").classList.remove("hidden");
             } else {
-                errorMsg.innerText = "API Key không hợp lệ hoặc đã hết hạn!";
+                error.innerText = "Key không hợp lệ hoặc đã hết hạn!";
             }
         }
 
         function logout() {
-            document.getElementById('dashboardCard').classList.add('hidden');
-            document.getElementById('loginCard').classList.remove('hidden');
-            document.getElementById('apiKeyInput').value = "";
+            document.getElementById("screenDashboard").classList.add("hidden");
+            document.getElementById("screenDetail").classList.add("hidden");
+            document.getElementById("screenLogin").classList.remove("hidden");
+            document.getElementById("keyField").value = "";
+        }
+
+        function openGameMenu(gameName) {
+            document.getElementById("detailGameTitle").innerText = gameName;
+            document.getElementById("screenDashboard").classList.add("hidden");
+            document.getElementById("screenDetail").classList.remove("hidden");
+            switchTab('esp');
+        }
+
+        function backToDashboard() {
+            document.getElementById("screenDetail").classList.add("hidden");
+            document.getElementById("screenDashboard").classList.remove("hidden");
+        }
+
+        function switchTab(tab) {
+            ['esp', 'aim', 'misc'].forEach(t => {
+                const btn = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
+                const content = document.getElementById('tabContent' + t.charAt(0).toUpperCase() + t.slice(1));
+                if (t === tab) {
+                    btn.classList.add('active');
+                    content.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('active');
+                    content.classList.add('hidden');
+                }
+            });
+        }
+
+        function selectBone(btn) {
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
         }
     </script>
 </body>
