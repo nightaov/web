@@ -40,7 +40,6 @@
             flex-direction: column;
             gap: 12px;
             padding-bottom: 24px;
-            transition: opacity 0.25s ease, transform 0.25s ease;
         }
 
         .hidden { display: none !important; }
@@ -69,7 +68,7 @@
             100% { box-shadow: 0 0 24px rgba(59, 130, 246, 0.9); }
         }
 
-        /* Logo Night iOS Custom */
+        /* Logo Night iOS */
         .night-logo {
             width: 54px;
             height: 54px;
@@ -90,7 +89,7 @@
             border: 1px solid var(--border-color);
             border-radius: 24px;
             padding: 28px 20px;
-            margin-top: 40px;
+            margin-top: 32px;
             text-align: center;
         }
         .login-logo-wrap {
@@ -100,7 +99,32 @@
         }
         .login-title { font-size: 1.4rem; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 4px; }
         .login-title span { background: linear-gradient(90deg, #a855f7, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .login-sub { font-size: 0.8rem; color: var(--text-sub); margin-bottom: 22px; }
+        .login-sub { font-size: 0.8rem; color: var(--text-sub); margin-bottom: 20px; }
+        
+        /* Khung hiển thị Key tự động khi vượt link xong */
+        .received-key-box {
+            background: rgba(52, 199, 89, 0.12);
+            border: 1px dashed #34c759;
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .received-key-box span {
+            display: block;
+            font-size: 0.72rem;
+            color: #34c759;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .received-key-val {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
         .input-group { text-align: left; }
         .input-group label { display: block; font-size: 0.75rem; color: var(--text-sub); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
         .key-input {
@@ -112,9 +136,10 @@
             color: #fff;
             font-size: 0.95rem;
             outline: none;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
         .key-input:focus { border-color: var(--neon-purple); }
+        
         .primary-btn {
             width: 100%;
             padding: 14px;
@@ -125,10 +150,24 @@
             font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
+            margin-bottom: 10px;
         }
+
+        .getkey-btn {
+            width: 100%;
+            padding: 13px;
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.45);
+            border-radius: 14px;
+            color: #d8b4fe;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
         .error-text { color: #ff453a; font-size: 0.8rem; text-align: center; margin-top: 10px; }
 
-        /* Main Header (Đã xoá 3 cột thông số máy) */
+        /* Main Header */
         .main-header {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -191,8 +230,7 @@
         }
         .list-info h4 { font-size: 0.95rem; font-weight: 600; }
         .list-info p { font-size: 0.72rem; color: var(--text-sub); margin-top: 2px; }
-        .list-status { font-size: 0.75rem; color: var(--text-sub); display: flex; align-items: center; gap: 6px; }
-        .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #34c759; }
+        .arrow-icon { font-size: 1.2rem; color: var(--text-sub); font-weight: 500; }
 
         .section-header {
             font-size: 0.75rem;
@@ -356,7 +394,7 @@
             font-size: 1rem;
             width: 100%;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -364,13 +402,12 @@
             gap: 2px;
         }
         .inject-sub { font-size: 0.7rem; font-weight: 500; opacity: 0.8; }
-        .note-text { text-align: center; font-size: 0.75rem; color: #636366; margin-top: 6px; }
     </style>
 </head>
 <body>
 
     <!-- Nút Bóng Nổi hiện ra khi bấm ẨN MENU -->
-    <div id="floatingBall" class="floating-ball hidden" onclick="toggleHideMenu(false)" title="Chạm để mở lại Menu">
+    <div id="floatingBall" class="floating-ball hidden" onclick="toggleHideMenu(false)">
         <svg viewBox="0 0 100 100" width="38" height="38">
             <defs>
                 <linearGradient id="neonGradBall" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -388,7 +425,7 @@
     <!-- KHUNG MENU CHÍNH -->
     <div id="mainWrapper" class="phone-wrapper">
         
-        <!-- 1. MÀN HÌNH NHẬP KEY -->
+        <!-- 1. MÀN HÌNH NHẬP KEY & VƯỢT LINK -->
         <div id="screenLogin" class="login-card">
             <div class="login-logo-wrap">
                 <div class="night-logo" style="width: 72px; height: 72px; border-radius: 20px;">
@@ -417,19 +454,28 @@
                 </div>
             </div>
             <div class="login-title">NIGHT <span>IOS</span> FF</div>
-            <div class="login-sub">Trợ lý trong game • Hệ thống xác thực Key</div>
-            <div class="input-group">
-                <label>Nhập API Key</label>
-                <input type="text" id="keyField" class="key-input" placeholder="Ví dụ: NIGHT-2026-VIP">
+            <div class="login-sub">Trợ lý trong game • v1.0.0</div>
+
+            <!-- Hộp tự hiện Key trên web khi khách vượt link xong -->
+            <div id="receivedKeyBox" class="received-key-box hidden">
+                <span>Key của bạn đã tạo thành công:</span>
+                <div id="receivedKeyText" class="received-key-val">---</div>
             </div>
-            <button class="primary-btn" onclick="submitKey()">Kích Hoạt & Mở Menu</button>
+
+            <div class="input-group">
+                <label>Nhập Key Kích Hoạt</label>
+                <input type="text" id="keyField" class="key-input" placeholder="Nhập key của bạn vào đây...">
+            </div>
+
+            <button class="primary-btn" onclick="submitKey()">Đăng Nhập Menu</button>
+            <button id="btnGetKey" class="getkey-btn" onclick="handleGetKey()">🔗 Lấy Key Miễn Phí (Vượt Link)</button>
             <div id="loginError" class="error-text"></div>
         </div>
 
-        <!-- 2. TRANG CHỦ DASHBOARD (Đã xoá 3 cột thông số & xoá Telegram) -->
+        <!-- 2. TRANG CHỦ DASHBOARD -->
         <div id="screenDashboard" class="hidden" style="display: flex; flex-direction: column; gap: 12px;">
             
-            <!-- Main Header kèm Logo Night iOS bên cạnh tên -->
+            <!-- Main Header -->
             <div class="main-header">
                 <div class="header-top">
                     <div class="app-badge">
@@ -482,7 +528,7 @@
             </div>
 
             <!-- Reset Guest -->
-            <div class="list-card" onclick="alert('Đã xoá định danh Guest giả lập!')">
+            <div class="list-card" onclick="alert('Đã xoá định danh Guest!')">
                 <div class="list-left">
                     <div class="icon-circle">🔄</div>
                     <div class="list-info">
@@ -496,7 +542,7 @@
             <!-- CHỌN GAME -->
             <div class="section-header">🎮 CHỌN GAME</div>
 
-            <!-- Free Fire Item -->
+            <!-- Free Fire Item (Đã xoá chữ Đã phát hiện) -->
             <div class="list-card" onclick="openGameMenu('Free Fire')">
                 <div class="list-left">
                     <div class="icon-circle" style="color: #ff453a;">🔥</div>
@@ -505,12 +551,10 @@
                         <p>Chỉnh chức năng & INJECT</p>
                     </div>
                 </div>
-                <div class="list-status">
-                    <span class="badge-dot"></span> Đã phát hiện &rsaquo;
-                </div>
+                <div class="arrow-icon">&rsaquo;</div>
             </div>
 
-            <!-- Free Fire MAX Item -->
+            <!-- Free Fire MAX Item (Đã xoá chữ Không thấy) -->
             <div class="list-card" onclick="openGameMenu('Free Fire MAX')">
                 <div class="list-left">
                     <div class="icon-circle" style="color: #ffd60a;">⚡</div>
@@ -519,9 +563,7 @@
                         <p>Chỉnh chức năng & INJECT</p>
                     </div>
                 </div>
-                <div class="list-status" style="color: #636366;">
-                    Không thấy &rsaquo;
-                </div>
+                <div class="arrow-icon">&rsaquo;</div>
             </div>
 
             <!-- Key Info Box -->
@@ -530,7 +572,7 @@
                     <div style="font-size: 16px;">🔑</div>
                     <div>
                         <div style="font-size: 0.65rem; color: var(--text-sub);">KEY ĐANG DÙNG</div>
-                        <div id="keyDisplay" style="font-size: 0.85rem; font-weight: 600;">--</div>
+                        <div id="keyDisplay" style="font-size: 0.85rem; font-weight: 700; color: #fff;">--</div>
                     </div>
                 </div>
                 <button onclick="logout()" style="background: none; border: none; color: #ff453a; font-size: 0.8rem; font-weight: 600; cursor: pointer;">Đăng xuất</button>
@@ -550,7 +592,7 @@
                 <button class="hide-menu-btn" onclick="toggleHideMenu(true)">Thu nhỏ</button>
             </div>
 
-            <!-- 4 Tabs: ESP | AIM | MISC | ẨN MENU -->
+            <!-- 4 Tabs -->
             <div class="tabs-header">
                 <button class="tab-btn active" id="tabBtnEsp" onclick="switchTab('esp')">ESP</button>
                 <button class="tab-btn" id="tabBtnAim" onclick="switchTab('aim')">AIM</button>
@@ -715,7 +757,7 @@
                 </div>
             </div>
 
-            <!-- TAB ẨN MENU (Chức năng ẩn & bảo mật hiển thị) -->
+            <!-- TAB ẨN MENU -->
             <div id="tabContentHide" class="menu-group hidden">
                 <div class="setting-box">
                     <div class="setting-row">
@@ -758,8 +800,7 @@
                 </button>
             </div>
 
-            <!-- Nút Inject -->
-            <div class="note-text">ⓘ Chưa kết nối được với game (Web Demo)</div>
+            <!-- Nút Inject (Đã xoá dòng ghi chú Demo) -->
             <button class="inject-btn" onclick="alert('Đã kích hoạt cấu hình NIGHT IOS FF!')">
                 ⚡ INJECT
                 <span class="inject-sub">cài & mở game</span>
@@ -768,26 +809,120 @@
     </div>
 
     <script>
-        const VALID_KEY = "NIGHT-2026-VIP";
+        // ==========================================
+        // 1. DANH SÁCH 3 KEY HỢP LỆ ĐÃ TẠO SẴN
+        // ==========================================
+        const VALID_KEYS = [
+            "NIGHT-VIP-8888",
+            "NIGHT-PRO-9999",
+            "NIGHT-FREE-2026"
+        ];
 
+        // ==========================================
+        // 2. CẤU HÌNH API VƯỢT LINK (LINK4M / YEUMONEY...)
+        // ==========================================
+        const SHORTENER_CONFIG = {
+            // Điền API Token của web vượt link vào đây (nếu dùng API tự động):
+            apiToken: "", 
+            // Ví dụ mẫu URL API của Link4m (thay đổi tuỳ bên dịch vụ bạn dùng):
+            apiEndpoint: "https://link4m.co/api-shorten/v2",
+            // Hoặc nếu bạn rút gọn tay 1 link cố định trên web vượt link, dán thẳng vào đây:
+            directShortLink: "" 
+        };
+
+        // Tự động kiểm tra trên thanh địa chỉ xem khách vừa vượt link xong hay chưa (?key=...)
+        window.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const keyFromUrl = urlParams.get("key");
+
+            if (keyFromUrl) {
+                const cleanKey = keyFromUrl.trim().toUpperCase();
+                // Hiện hộp thông báo Key ngay trên web và tự điền vào ô input
+                document.getElementById("receivedKeyBox").classList.remove("hidden");
+                document.getElementById("receivedKeyText").innerText = cleanKey;
+                document.getElementById("keyField").value = cleanKey;
+            }
+
+            // Nếu trước đó đã đăng nhập rồi thì tự giữ phiên
+            const savedKey = localStorage.getItem("night_active_key");
+            if (savedKey && VALID_KEYS.includes(savedKey)) {
+                loginSuccess(savedKey);
+            }
+        });
+
+        // Xử lý khi bấm nút Đăng Nhập
         function submitKey() {
-            const key = document.getElementById("keyField").value.trim();
+            const inputKey = document.getElementById("keyField").value.trim().toUpperCase();
             const error = document.getElementById("loginError");
-            if (!key) {
-                error.innerText = "Vui lòng nhập API Key!";
+
+            if (!inputKey) {
+                error.innerText = "Vui lòng nhập Key để tiếp tục!";
                 return;
             }
-            if (key === VALID_KEY || key.startsWith("NIGHT-")) {
+
+            if (VALID_KEYS.includes(inputKey)) {
                 error.innerText = "";
-                document.getElementById("keyDisplay").innerText = key;
-                document.getElementById("screenLogin").classList.add("hidden");
-                document.getElementById("screenDashboard").classList.remove("hidden");
+                localStorage.setItem("night_active_key", inputKey);
+                loginSuccess(inputKey);
             } else {
-                error.innerText = "Key không hợp lệ hoặc đã hết hạn!";
+                error.innerText = "Key không chính xác hoặc đã hết hạn!";
             }
         }
 
+        function loginSuccess(key) {
+            // Tự hiện chính xác Key vừa nhập lên mục KEY ĐANG DÙNG
+            document.getElementById("keyDisplay").innerText = key;
+            document.getElementById("screenLogin").classList.add("hidden");
+            document.getElementById("screenDashboard").classList.remove("hidden");
+        }
+
+        // Xử lý nút Lấy Key (Vượt Link)
+        async function handleGetKey() {
+            const btn = document.getElementById("btnGetKey");
+            const error = document.getElementById("loginError");
+
+            // Chọn ngẫu nhiên 1 trong 3 key (hoặc cố định key FREE) để trả về sau khi vượt link
+            const targetKey = VALID_KEYS[2]; // NIGHT-FREE-2026
+            const baseUrl = window.location.origin + window.location.pathname;
+            const destinationUrl = `${baseUrl}?key=${encodeURIComponent(targetKey)}`;
+
+            // TH1: Nếu bạn đã dán link rút gọn trực tiếp vào directShortLink
+            if (SHORTENER_CONFIG.directShortLink) {
+                window.location.href = SHORTENER_CONFIG.directShortLink;
+                return;
+            }
+
+            // TH2: Nếu bạn điền API Token của web vượt link (tự động tạo link rút gọn bằng API)
+            if (SHORTENER_CONFIG.apiToken) {
+                try {
+                    btn.innerText = "⏳ Đang tạo link vượt...";
+                    const apiUrl = `${SHORTENER_CONFIG.apiEndpoint}?api=${SHORTENER_CONFIG.apiToken}&url=${encodeURIComponent(destinationUrl)}`;
+                    const res = await fetch(apiUrl);
+                    const data = await res.json();
+
+                    if (data.status === "success" && data.shortenedUrl) {
+                        window.location.href = data.shortenedUrl;
+                        return;
+                    } else {
+                        error.innerText = "Lỗi API vượt link, vui lòng kiểm tra lại Token!";
+                        btn.innerText = "🔗 Lấy Key Miễn Phí (Vượt Link)";
+                        return;
+                    }
+                } catch (err) {
+                    error.innerText = "Không thể kết nối máy chủ vượt link!";
+                    btn.innerText = "🔗 Lấy Key Miễn Phí (Vượt Link)";
+                    return;
+                }
+            }
+
+            // TH3: Nếu chưa gắn API vượt link, chuyển thẳng tới URL có chứa ?key=... để bạn test thử
+            window.location.href = destinationUrl;
+        }
+
         function logout() {
+            localStorage.removeItem("night_active_key");
+            // Xoá ?key= trên URL nếu có
+            window.history.replaceState({}, document.title, window.location.pathname);
             document.getElementById("screenDashboard").classList.add("hidden");
             document.getElementById("screenDetail").classList.add("hidden");
             document.getElementById("screenLogin").classList.remove("hidden");
@@ -826,7 +961,6 @@
             btn.classList.add('active');
         }
 
-        // Chức năng Ẩn/Hiện Menu thành bóng nổi
         function toggleHideMenu(hide) {
             const wrapper = document.getElementById("mainWrapper");
             const ball = document.getElementById("floatingBall");
